@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head>
+  <title>Map</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="OpenLayers.js"></script>
+  <script src="script.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body onload="init();">
+
+
+<div id="splash-screen">
+  <div class="loading-animation"></div>
+</div>
+
+<div id="navBar">
+  <ul>
+    <li><a href="index.html" class="current">Map</a></li>
+    <li><a href="activities.html">Activities</a></li>
+    <li><a href="forum.html">Forum</a></li>
+    <li><a href="login.html" id="logoutButton">Logout</a></li>
+  </ul>
+</div>
+
+<div class="container">
+  <div class="title">
+    <h1 class="appname">Fun Fit Glasgow</h1>
+  </div>
+  <div class="column">
+    <input type="text" id="xCoord" placeholder="Enter X coordinate...">
+    <button onclick="getUserLocation()">Your Location</button>
+  </div>
+  <div class="column">
+    <input type="text" id="yCoord" placeholder="Enter Y coordinate...">
+    <button onclick="resetCoords()">Reset Map</button>
+  </div>
+  <div class="column">
+    <button onclick="setCoords()">Search</button>
+    <button id="toggleWeatherButton" onclick="toggleWeather()">Show Weather</button>
+  </div>
+</div>
+
+<div id="weatherInfoContainer" style="display: none;"> <!-- Initially hidden -->
+  <div id="weatherInfo"></div>
+</div>
+
+<div id="basicMap"></div>
+
+
+  <div id="bubbleSoccerPopUp" class="popUp indoor fun">
+    <span class="close" onclick="closePopUp('bubbleSoccerPopUp')">&times;</span>
+    <h1 class="popUpTitle">Bubble Soccer</h1>
+    <p class="popUpText">bubble socceerrrrrr</p>
+    <a href="bubblesoocor.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="bungeePopUp" class="popUp indoor fun">
+    <span class="close" onclick="closePopUp('bungeePopUp')">&times;</span>
+    <h1 class="popUpTitle">Bungee Jump</h1>
+    <p class="popUpText">bungee jumpppppp</p>
+    <a href="bungee.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="climbingPopUp" class="popUp indoor">
+    <span class="close" onclick="closePopUp('climbingPopUp')">&times;</span>
+    <h1 class="popUpTitle">Climbing Centre</h1>
+    <p class="popUpText">climbbbbb</p>
+    <a href="climbing.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="flipOutPopUp" class="popUp indoor">
+    <span class="close" onclick="closePopUp('flipOutPopUp')">&times;</span>
+    <h1 class="popUpTitle">Flip Out</h1>
+    <p class="popUpText">bouncy bouncy</p>
+    <a href="flipout.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="laserQuestPopUp" class="popUp indoor fun">
+    <span class="close" onclick="closePopUp('laserQuestPopUp')">&times;</span>
+    <h1 class="popUpTitle">Laser Quest</h1>
+    <p class="popUpText">Laser Questttt</p>
+    <a href="laserquest.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="rollerStopPopUp" class="popUp indoor fun">
+    <span class="close" onclick="closePopUp('rollerStopPopUp')">&times;</span>
+    <h1 class="popUpTitle">Roller Stop</h1>
+    <p class="popUpText">rollerskating</p>
+    <a href="rollerstop.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="topGolfPopUp" class="popUp indoor fun">
+    <span class="close" onclick="closePopUp('topGolfPopUp')">&times;</span>
+    <h1 class="popUpTitle">Top Golf</h1>
+    <p class="popUpText">top gollfffff</p>
+    <a href="topgolf.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="3dhealthPopUp" class="popUp indoor wellbeing">
+    <span class="close" onclick="closePopUp('3dhealthPopUp')">&times;</span>
+    <h1 class="popUpTitle">3D Health & Fitness</h1>
+    <p class="popUpText">3d healthhh</p>
+    <a href="3dhealth.html"><button class="popUpButton">More Info</button></a>
+  </div>
+
+  <div id="botanicPopUp" class="popUp outdoor">
+    <span class="close" onclick="closePopUp('botanicPopUp')">&times;</span>
+    <h1 class="popUpTitle">Botanic Gardens</h1>
+    <p class="popUpText">nice wee botanic grass</p>
+    <a href="botanic.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="cgWellnessPopUp" class="popUp indoor wellbeing">
+    <span class="close" onclick="closePopUp('cgWellnessPopUp')">&times;</span>
+    <h1 class="popUpTitle">Club Gym Wellness</h1>
+    <p class="popUpText">gym in city centre</p>
+    <a href="cgwellness.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="crossfitPopUp" class="popUp indoor gym">
+    <span class="close" onclick="closePopUp('crossfitPopUp')">&times;</span>
+    <h1 class="popUpTitle">CrossFit Glasgow</h1>
+    <p class="popUpText">crossfittting</p>
+    <a href="crossfit.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="extremeGymPopUp" class="popUp indoor gym">
+    <span class="close" onclick="closePopUp('extremeGymPopUp')">&times;</span>
+    <h1 class="popUpTitle">Extreme Gym</h1>
+    <p class="popUpText">be mega extreme in the gym</p>
+    <a href="extremegym.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="f45PopUp" class="popUp indoor gym">
+    <span class="close" onclick="closePopUp('f45PopUp')">&times;</span>
+    <h1 class="popUpTitle">F45 Training</h1>
+    <p class="popUpText">train up fatty</p>
+    <a href="f45.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="ginSpaPopUp" class="popUp indoor wellbeing">
+    <span class="close" onclick="closePopUp('ginSpaPopUp')">&times;</span>
+    <h1 class="popUpTitle">The Gin Spa</h1>
+    <p class="popUpText">gin and spa and relax for health</p>
+    <a href="ginspa.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="greenPopUp" class="popUp outdoor">
+    <span class="close" onclick="closePopUp('greenPopUp')">&times;</span>
+    <h1 class="popUpTitle">Glasgow Green</h1>
+    <p class="popUpText">nice big green grassy area in centre</p>
+    <a href="Green.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="ironSkullPopUp" class="popUp indoor gym">
+    <span class="close" onclick="closePopUp('ironSkullPopUp')">&times;</span>
+    <h1 class="popUpTitle">Iron Skull Gym</h1>
+    <p class="popUpText">become iron man and crush skullz</p>
+    <a href="ironskull.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="kelvingrovePopUp" class="popUp outdoor">
+    <span class="close" onclick="closePopUp('kelvingrovePopUp')">&times;</span>
+    <h1 class="popUpTitle">Kelvingrove Park</h1>
+    <p class="popUpText">kelvins park</p>
+    <a href="kelvingrove.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="ochoSpaPopUp" class="popUp indoor wellbeing">
+    <span class="close" onclick="closePopUp('ochoSpaPopUp')">&times;</span>
+    <h1 class="popUpTitle">Ocho Spa</h1>
+    <p class="popUpText">spa in city centre</p>
+    <a href="ohcospa.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="pipeworksPopUp" class="popUp indoor wellbeing">
+    <span class="close" onclick="closePopUp('pipeworksPopUp')">&times;</span>
+    <h1 class="popUpTitle">The Pipeworks</h1>
+    <p class="popUpText">gay men only spa</p>
+    <a href="pipeworks.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="pollokPopUp" class="popUp outdoor">
+    <span class="close" onclick="closePopUp('pollokPopUp')">&times;</span>
+    <h1 class="popUpTitle">Pollok County Park</h1>
+    <p class="popUpText">pollok park</p>
+    <a href="pollok.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="pureGymPopUp" class="popUp indoor gym">
+    <span class="close" onclick="closePopUp('pureGymPopUp')">&times;</span>
+    <h1 class="popUpTitle">Pure Gym Bath Street</h1>
+    <p class="popUpText">pure good gym on bath st</p>
+    <a href="puregymbath.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="pureSpaPopUp" class="popUp indoor">
+    <span class="close" onclick="closePopUp('pureSpaPopUp')">&times;</span>
+    <h1 class="popUpTitle">Pure Spa & Beauty</h1>
+    <p class="popUpText">spa and beauty treatments</p>
+    <a href="purespa.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="ruchillPopUp" class="popUp outdoor">
+    <span class="close" onclick="closePopUp('ruchillPopUp')">&times;</span>
+    <h1 class="popUpTitle">Ruchill Park</h1>
+    <p class="popUpText">public park in glasgow</p>
+    <a href="ruchill.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="spaInTheCityPopUp" class="popUp indoor wellbeing">
+    <span class="close" onclick="closePopUp('spaInTheCityPopUp')">&times;</span>
+    <h1 class="popUpTitle">Spa in the City</h1>
+    <p class="popUpText">very good spa in the city</p>
+    <a href="spainthecity.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+  <div id="watersportsPopUp" class="popUp indoor fun">
+    <span class="close" onclick="closePopUp('watersportsPopUp')">&times;</span>
+    <h1 class="popUpTitle">Pinkston Watersports</h1>
+    <p class="popUpText">splish splash with water sports</p>
+    <a href="watersports.html"><button class="popUpButton">More info</button></a>
+  </div>
+
+</body>
+</html>

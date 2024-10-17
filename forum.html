@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Board</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div id="navBar">
+    <ul>
+        <li><a href="index.html">Map</a></li>
+        <li><a href="activities.html">Activities</a></li>
+        <li><a href="forum.html" class="current">Forum</a></li>
+        <li><a href="login.html" id="logoutButton">Logout</a></li>
+
+    </ul>
+</div>
+
+<h1 id="forumTitle">Message Board</h1>
+
+<input type="text" id="messageInput" placeholder="Type your message...">
+<button id="message-button">→</button>
+
+<ul id="messages"></ul>
+
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
+<script type="module">
+    import { getAuth } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
+    //import Pusher from "pusher";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCRRSbMQ8kN8bUF8uRXU8817titrkus4XI",
+        authDomain: "cs317-c4e72.firebaseapp.com",
+        projectId: "cs317-c4e72",
+        storageBucket: "cs317-c4e72.appspot.com",
+        messagingSenderId: "44301186287",
+        appId: "1:44301186287:web:8dc06505572dfcff55971a"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('0f02931764008439a32c', {
+        cluster: 'eu'
+    });
+
+    var channel = pusher.subscribe('messages-channel');
+    channel.bind('new-message', function(data) {
+        var listItem = document.createElement('li');
+        listItem.className = 'message';
+        // Display both email and message
+        listItem.textContent = `${data.email}: ${data.message}`;
+        document.getElementById('messages').appendChild(listItem);
+    });
+    function sendForumMessage() {
+        var messageInput = document.getElementById('messageInput');
+        var message = messageInput.value;
+        // Assume you have access to the current user's email here
+        var userEmail = auth.currentUser.email; // Get the current user's email
+
+        if (message.trim() !== '') {
+            fetch('http://localhost:3000/messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: message, email: userEmail }) // Include email in the request body
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to send message to server');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Message sent successfully:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+            messageInput.value = ''; // Clear the input after sending
+        } else {
+            alert('Please enter a message!');
+        }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+        const button = document.getElementById('message-button');
+        button.addEventListener('click', sendForumMessage);
+    });
+
+
+</script>
+</body>
+</html>

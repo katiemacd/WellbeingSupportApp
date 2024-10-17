@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <script type="module" src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/9.1.3/firebase-auth.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js"></script>
+  <script type="module" src="login.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body style="background-color: #333">
+<div class="logo-container">
+  <img src="2.png" alt="logo">
+</div>
+<div class="login-container">
+  <!-- Login form -->
+  <div id="loginFormContainer" style="display: block;">
+  <h2>Login</h2>
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <div id="loginError" class="error-message" style="display: none;"></div>
+    <button type="submit">Login</button>
+  </form>
+  </div>
+  <button id="showSignupForm" style="display: block;">Switch to signup form</button>
+  <!-- Signup form -->
+  <div id="signupFormContainer" style="display: none;">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+      <input type="email" id="signupEmail" placeholder="Email" required>
+      <input type="password" id="signupPassword" placeholder="Password" required>
+      <div id="signupError" class="error-message" style="display: none;"></div>
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+  <button id="showLoginForm" style="display: none;">Switch to login form</button>
+</div>
+</body>
+</html>

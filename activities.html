@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Activities</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="padding: 2vh 1vh 2vh 0">
+<div id="navBar">
+  <ul>
+    <li><a href="index.html">Map</a></li>
+    <li><a href="activities.html" class="current">Activities</a></li>
+    <li><a href="forum.html">Forum</a></li>
+    <li><a href="login.html" id="logoutButton">Logout</a></li>
+
+  </ul>
+</div>
+
+
+<div id="activities">
+  <input type="text" id="input" onkeyup="searchActivities()" placeholder="Search activities...">
+  <div id="filterButtons">
+    <button onclick="filterActivities('all')">All</button>
+    <button onclick="filterActivities('fun')">Fun</button>
+    <button onclick="filterActivities('indoor')">Indoor</button>
+    <button onclick="filterActivities('outdoor')">Outdoor</button>
+    <button onclick="filterActivities('gym')">Gym</button>
+    <button onclick="filterActivities('wellbeing')">Wellbeing</button>
+  </div>
+  <div class="outdoor" id="outdoor-container" style="display:none">
+      <div>
+        <p class="popUpBox">Going outdoors? Try tracking your journey with a walking pacer</p>
+        <button><a href="walkingPacer.html">Click me</a></button>
+      </div>
+  </div>
+  <ul>
+    <li class="all wellbeing indoor"><a href="3dhealth.html">3D Health</a></li>
+    <li class="all outdoor"><a href="botanic.html">Botanic Gardens</a></li>
+    <li class="all fun indoor"><a href="bubblesoocor.html">Bubble Soccer</a></li>
+    <li class="all fun indoor"><a href="bungee.html">Bungee</a></li>
+    <li class="all wellbeing indoor"><a href="cgwellness.html">Club Gym Wellness</a></li>
+    <li class="all fun indoor"><a href="climbing.html">Climbing</a></li>
+    <li class="all gym indoor"><a href="crossfit.html">CrossFit</a></li>
+    <li class="all gym indoor"><a href="extremegym.html">Extreme Gym</a></li>
+    <li class="all gym indoor"><a href="f45.html">F45 Training</a></li>
+    <li class="all fun indoor"><a href="flipout.html">Flipout</a></li>
+    <li class="all wellbeing indoor"><a href="ginspa.html">The Gin Spa</a></li>
+    <li class="all outdoor"><a href="Green.html">Glasgow Green</a></li>
+    <li class="all gym indoor"><a href="ironskull.html">Iron Skull</a></li>
+    <li class="all outdoor"><a href="kelvingrove.html">Kelvingrove Park</a></li>
+    <li class="all fun indoor"><a href="laserquest.html">Laserquest</a></li>
+    <li class="all wellbeing indoor"><a href="ohcospa.html">Ocho Spa</a></li>
+    <li class="all wellbeing indoor"><a href="pipeworks.html">Pipeworks</a></li>
+    <li class="all outdoor"><a href="pollok.html">Pollok County Park</a></li>
+    <li class="all gym indoor"><a href="puregymbath.html">Pure Gym Bath Street</a></li>
+    <li class="all wellbeing indoor"><a href="purespa.html">Pure Spa</a></li>
+    <li class="all fun indoor"><a href="rollerstop.html">Rollerstop</a></li>
+    <li class="all outdoor"><a href="ruchill.html">Ruchill Park</a></li>
+    <li class="all wellbeing indoor"><a href="spainthecity.html">Spa in the City</a></li>
+    <li class="all fun outdoor"><a href="topgolf.html">Topgolf</a></li>
+    <li class="all fun outdoor"><a href="watersports.html">Pinkston Watersports</a></li>
+
+  </ul>
+</div>
+
+</body>
+</html>

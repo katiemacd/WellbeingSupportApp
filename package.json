@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@firebase/app": "^0.9.29",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "firebase": "^10.9.0",
+    "pusher": "^5.2.0"
+  }
+}
